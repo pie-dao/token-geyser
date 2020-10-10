@@ -149,7 +149,7 @@ contract TokenGeyser is IStaking, Ownable {
 
     /** 
      * @dev Created for compatibility with UniPool staking contract
-     * @param amount
+     * @param amount Amount to stake
     */
     function stake(uint256 amount) external {
         _stakeFor(msg.sender, msg.sender, amount);
@@ -216,7 +216,7 @@ contract TokenGeyser is IStaking, Ownable {
 
     /**
      * @dev Created for compatibility with UniPool contract
-     * @param amount
+     * @param amount Number of tokens to withdraw
     */
     function withdraw(uint256 amount) external {
         _unstake(amount);
