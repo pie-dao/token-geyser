@@ -143,6 +143,14 @@ contract TokenGeyser is IStaking, Ownable {
         _stakeFor(msg.sender, msg.sender, amount);
     }
 
+    /** 
+     * @dev Created for compatibility with UniPool staking contract
+     * @param amount
+    */
+    function stake(uint256 amount) external {
+        _stakeFor(msg.sender, msg.sender, amount);
+    }
+
     /**
      * @dev Transfers amount of deposit tokens from the caller on behalf of user.
      * @param user User address who gains credit for this stake operation.
@@ -199,6 +207,14 @@ contract TokenGeyser is IStaking, Ownable {
      * @param data Not used.
      */
     function unstake(uint256 amount, bytes calldata data) external {
+        _unstake(amount);
+    }
+
+    /**
+     * @dev Created for compatibility with UniPool contract
+     * @param amount
+    */
+    function withdraw(uint256 amount) external {
         _unstake(amount);
     }
 
@@ -322,6 +338,14 @@ contract TokenGeyser is IStaking, Ownable {
     function totalStakedFor(address addr) public view returns (uint256) {
         return totalStakingShares > 0 ?
             totalStaked().mul(_userTotals[addr].stakingShares).div(totalStakingShares) : 0;
+    }
+
+    /**
+     * @dev Created for compatibility with UniPool staking contract
+     * @return The number of staking tokens deposited for addr.
+    */
+    function balanceOf(address addr) external view returns (uint256) {
+        return totalStakedFor(addr);
     }
 
     /**

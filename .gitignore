@@ -74,3 +74,4 @@ coverage/
 coverageEnv/
 
 .openzeppelin
+deployments/artifacts
