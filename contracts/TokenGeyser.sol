@@ -92,6 +92,8 @@ contract TokenGeyser is IStaking, Ownable {
 
     UnlockSchedule[] public unlockSchedules;
 
+    bool public initialized;
+
     /**
      * @param stakingToken The token users deposit as stake.
      * @param distributionToken The token users receive as they unstake.
@@ -101,8 +103,10 @@ contract TokenGeyser is IStaking, Ownable {
      * @param bonusPeriodSec_ Length of time for bonus to increase linearly to max.
      * @param initialSharesPerToken Number of shares to mint per staking token on first stake.
      */
-    constructor(IERC20 stakingToken, IERC20 distributionToken, uint256 maxUnlockSchedules,
+    function init(IERC20 stakingToken, IERC20 distributionToken, uint256 maxUnlockSchedules,
                 uint256 startBonus_, uint256 bonusPeriodSec_, uint256 initialSharesPerToken) public {
+        require(!initialized, "Already initialized");
+        initialized = true;
         // The start bonus must be some fraction of the max. (i.e. <= 100%)
         require(startBonus_ <= 10**BONUS_DECIMALS, 'TokenGeyser: start bonus too high');
         // If no period is desired, instead set startBonus = 100%
