@@ -355,6 +355,14 @@ contract TokenGeyser is IStaking, Ownable {
         return _stakingPool.balance();
     }
 
+    /** 
+     * @dev Created for compatibility with UniPool staking contract
+     * @return The total number of staked tokens
+    */
+    function totalSupply() external view returns (uint256) {
+        return totalStaked();
+    }
+
     /**
      * @dev Note that this application has a staking token as well as a distribution token, which
      * may be different. This function is required by EIP-900.
